@@ -1,3 +1,1 @@
-screenshots/calendar.png
-
-#こちらスクリーンショットになります。
+課題提出用のリポジトリです
