@@ -25,10 +25,15 @@ class VendingMachine:
         # 指定された名前の棚（リスト）を取得。なければ空のリストを返す
         target_stocks = self.__stocks.get(name, [])
 
-        # 「在庫があるか」かつ「Suica残高が足りるか」を確認
+        # 在庫があるか確認
+        if len(target_stocks) == 0:
+            raise ValueError("在庫が不足しています")
+
+        # Suica残高が足りるか確認
         # target_stocks[-1] で棚の一番手前にあるジュースの値段を見る
-        if len(target_stocks) == 0 or suica.get() < target_stocks[-1].get_price():
-            raise ValueError("入力値が不正です")
+        if suica.get() < target_stocks[-1].get_price():
+            raise ValueError("残高が不足しています")
+
         return True
 
     def buy_juice(self, suica, name):
