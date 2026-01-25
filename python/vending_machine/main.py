@@ -1,17 +1,22 @@
 from juice import Juice
 
+PRODUCTS = {
+    "pepusi": 150,
+    "monster": 230,
+    "irohasu": 120,
+}
 
 class VendingMachine:
     def __init__(self):
         self.__sales = 0
+
         # 3種類の棚（リスト）を辞書で管理。ここが自販機の「中身」
-        self.__stocks = {"pepusi": [], "monster": [], "irohasu": []}
+        self.__stocks = {name: [] for name in PRODUCTS}
 
         # 初期在庫を各棚に5本ずつ補充する
-        for i in range(5):
-            self.__stocks["pepusi"].append(Juice("pepusi", 150))
-            self.__stocks["monster"].append(Juice("monster", 230))
-            self.__stocks["irohasu"].append(Juice("irohasu", 120))
+        for name in PRODUCTS:
+            for _ in range(5):
+                self.__stocks[name].append(Juice(name, PRODUCTS[name]))
 
     def get_sales(self):
         return self.__sales
@@ -52,9 +57,4 @@ class VendingMachine:
             raise ValueError(f"{name}という商品は存在しません")
 
         for _ in range(amount):
-            if name == "pepusi":
-                self.__stocks["pepusi"].append(Juice("pepusi", 150))
-            elif name == "monster":
-                self.__stocks["monster"].append(Juice("monster", 230))
-            elif name == "irohasu":
-                self.__stocks["irohasu"].append(Juice("irohasu", 120))
+            self.__stocks[name].append(Juice(name, PRODUCTS[name]))
